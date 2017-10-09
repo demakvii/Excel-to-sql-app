@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<servlet>
+		<!-- Dispatcher Servlet is used to listen to uri and based upon the uri 
+			with combination of handler and view it find appropriate page/resource -->
+		<servlet-name>request</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!--Request servlet for component scan for spring controller -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:request-servlet.xml</param-value>
+		</init-param>
+		<!-- load-on-startup determines the loading order of servlets 0 being the 
+			first -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<!--Accept request with url-pattern : req/* -->
+	<servlet-mapping>
+		<servlet-name>request</servlet-name>
+		<url-pattern>req/*</url-pattern>
+	</servlet-mapping>
+	<!-- Application Context to initialize Hibernate and jdbc drivers(config) -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+	<!--Bootstrap listener to start up and shut down Spring's root WebApplicationContext -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+</web-app>

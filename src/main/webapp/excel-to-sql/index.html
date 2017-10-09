@@ -1,0 +1,109 @@
+<html ng-app='myMain'>
+<head>
+    <meta charset="utf-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="scripts/lib/bootstrap/bootstrap.min.css" rel="stylesheet"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="scripts/lib/node_modules/angular-material/angular-material.min.css">
+    <link rel="stylesheet" type="text/css" href="scripts/lib/app.css">
+</head>
+
+<body ng-controller='myMainController' layout="column">
+    <form id="form1" name="form1" method="post" action="/Excel-to-sql-app/req/UploadConvert" enctype="multipart/form-data">
+       
+         Input File :<input name="file"  type="file" ng-model="inputFile" id="inputFile" required  /><br/>
+ Output Format :<input name="file"  type="file" ng-model="outputFile" id="outputFile" required /><br/>
+  <input type="submit" value="Upload and Convert" ng-model="" ng-disabled="form1.inputFile.$error.required" />
+
+        <input type="file" id="fileLoader" name="files" title="Load File" style="display: none;" />
+        <input type="button" id="btnOpenFileDialog" value="Click Me 2!!!" onclick="$('#fileLoader').trigger('click');" />
+        <span id="valueofinp"></span>
+        <div class="container" layout="row" flex>
+        </div>
+    </form> 
+    <!-- <md-toolbar class="md-primary">
+        <div class="md-toolbar-tools">
+            <h2 class="md-flex">Excel to SQL</h2>
+        </div>
+    </md-toolbar>
+    <form name="form1">
+        <input type="file" id="inputfileLoader" name="inputfiles" title="Input File" style="display: none;" />
+        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+            <section layout="column" layout-sm="row" layout-align="center center" layout-wrap>
+                <md-button class="md-raised" ng-click="inputfilePopup()" aria-label="Eat cake">
+                    <md-icon md-svg-src="resources/svg/ic_file_upload_black_48px.svg"></md-icon> Input File
+                </md-button>
+                <md-input-container class="md-block">
+                    <label id="inputFilenameLabel" style="text-align: center;">Input File</label>
+                    <input type="text" required md-no-asterisk id="inputFilename" name="inputFilename" ng-model="inputFilename" disabled="true" />
+                    <br>
+                    <div ng-messages="form1.inputFilename.$error">
+                        <div ng-message="required">This is required.</div>
+                    </div>
+                </md-input-container>
+            </section>
+            <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+                <md-button class="md-raised" aria-label="Eat cake" id="ucbtn">
+                    Upload and Convert
+                </md-button>
+            </section>
+            <input type="file" id="outputfileLoader" name="files" title="Load File" style="display: none;" required />
+            <section layout="column" layout-sm="row" layout-align="center center" layout-wrap>
+                <md-button class="md-raised" ng-click="outputfilePopup()" aria-label="Eat cake">
+                    <md-icon md-svg-src="resources/svg/ic_file_upload_black_48px.svg"></md-icon> Output File
+                </md-button>
+                <md-input-container class="md-block">
+                    <label id="outputFilenameLabel" style="text-align: center;">Output File</label>
+                    <input type="text" required md-no-asterisk id="outputFilename" name="outputFilename" ng-model="outputFilename" disabled="true" />
+                    <br>
+                    <div ng-messages="form1.outputFilename.$error">
+                        <div ng-message="required">This is required.</div>
+                    </div>
+                </md-input-container>
+            </section>
+        </section>
+    </form> -->
+    <script src="scripts/lib/jquery/jquery-3.1.0.min.js"></script>
+    <script src="scripts/lib/node_modules/angular/angular.min.js"></script>
+    <script src="scripts/lib/node_modules/angular-animate/angular-animate.js"></script>
+    <script src="scripts/lib/node_modules/angular-aria/angular-aria.min.js"></script>
+    <script src="scripts/lib/node_modules/angular-material/angular-material.min.js"></script>
+    <script src="scripts/lib/node_modules/angular-messages/angular-messages.min.js"></script>
+    <script src="scripts/lib/workJs/app.js"></script>
+    <script>
+    jQuery(document).ready(function($) {
+      angular.element(document.getElementById('ucbtn'))[0].disabled = true;
+        $('#inputfileLoader').change(function(event) {
+            var vals = $(this).val(),
+                val = vals.length ? vals.split('\\').pop() : '';
+            if (val) {
+                $('#inputFilename').val(val);
+                $('#inputFilename').text(val);
+                $('#inputFilename').html(val);
+                $('#inputFilenameLabel').text(val);
+               if($('#outputFilename').val().length>0)
+                angular.element(document.getElementById('ucbtn'))[0].disabled = false;
+              else
+                angular.element(document.getElementById('ucbtn'))[0].disabled = true;
+          
+            }
+        });
+
+        $('#outputfileLoader').change(function(event) {
+            var vals = $(this).val(),
+                val = vals.length ? vals.split('\\').pop() : '';
+            if (val) {
+                $('#outputFilename').val(val);
+                 $('#outputFilename').text(val);
+                $('#outputFilenameLabel').text(val);
+               if($('#inputFilename').val().length>0)
+                angular.element(document.getElementById('ucbtn'))[0].disabled = false;
+              else
+                angular.element(document.getElementById('ucbtn'))[0].disabled = true;
+            }
+        });
+    });
+    </script>
+</body>
+
+</html>
